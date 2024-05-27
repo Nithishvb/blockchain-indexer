@@ -3,7 +3,6 @@ import Tiles from "../Tiles/Tiles";
 import { useTileContext } from "@/context/context";
 
 type CardPropType = {
-  startBet: () => void;
   currentRow: number;
   activeTileCount: number;
   setCurrentRow: (val: any) => void;
@@ -17,10 +16,13 @@ const Card = ({ currentRow, activeTileCount, setCurrentRow} : CardPropType) => {
     if (val.Title) {
       val.isOpened = true;
       setCurrentRow((prevCount: number) => prevCount + 1);
+      dispatch({
+        type: 'UPDATE_USER_PROFIT'
+      })
     } else {
       setCurrentRow(0);
       dispatch({
-        type: "RESET_TILES"
+        type: "RESET_TILES",
       });
     }
   };

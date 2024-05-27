@@ -11,7 +11,8 @@ interface AppWrapperProps {
 export type InitialStateType = {
   tiles: any[],
   isTileOpened: boolean,
-  totalAmount: number
+  totalAmount: number,
+  userProfit: number
 }
 
 const InitialState : InitialStateType = {
@@ -24,7 +25,8 @@ const InitialState : InitialStateType = {
       .map(generateRandomEgg)
   ),
   isTileOpened: false,
-  totalAmount: 50000
+  totalAmount: 50000,
+  userProfit: 0
 };
 
 // Create the context
