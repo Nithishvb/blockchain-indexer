@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function Home() {
   const [currentRow, setCurrentRow] = useState<number>(0);
   const { state, dispatch } = useTileContext();
+  const [openedTileIndex, setOpenedTileIndex] = useState<number>(0);
 
   const startBet = (betAmount: number) => {
     setCurrentRow((prevCount) => prevCount + 1);
@@ -44,10 +45,14 @@ export default function Home() {
         });
       }
     } else {
-      setCurrentRow(0);
-      dispatch({
-        type: "RESET_TILES",
-      });
+      setOpenedTileIndex(randomNum);
+      setTimeout(() => {
+        setCurrentRow(0);
+        dispatch({
+          type: "RESET_TILES",
+        });
+        setOpenedTileIndex(0);
+      }, 400);
     }
   };
 
@@ -61,6 +66,8 @@ export default function Home() {
       <Card
         currentRow={currentRow}
         setCurrentRow={setCurrentRow}
+        openedTileIndex={openedTileIndex}
+        setOpenedTileIndex={setOpenedTileIndex}
       />
     </main>
   );

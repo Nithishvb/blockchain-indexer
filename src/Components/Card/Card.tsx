@@ -4,12 +4,13 @@ import { useTileContext } from "@/context/context";
 
 type CardPropType = {
   currentRow: number;
+  openedTileIndex: number;
   setCurrentRow: (val: any) => void;
+  setOpenedTileIndex: (val: any) => void;
 };
 
-const Card = ({ currentRow, setCurrentRow }: CardPropType) => {
+const Card = ({ currentRow, setCurrentRow , openedTileIndex , setOpenedTileIndex }: CardPropType) => {
   const { state, dispatch } = useTileContext();
-  const [openedTileIndex, setOpenedTileIndex] = useState<number>();
 
   const handleTiles = (val: any, currentIndex: number) => {
     if (val.Title) {
