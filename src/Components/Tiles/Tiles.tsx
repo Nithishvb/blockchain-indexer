@@ -15,7 +15,7 @@ export default function Tiles({ content , handleTiles , activatedTile , openedTi
         !content.isOpened ? (
           <div className={`${activatedTile ? openedTileIndex ? `bg-red-500/50` : 'bg-green-500' : `bg-gray-500`} w-[170px] rounded-md m-2 cursor-pointer`}>
             <div className="text-white text-center flex justify-center items-center h-[50px]" aria-disabled="true" onClick={() => activatedTile ? handleTiles(content, currentIndex) : undefined} >
-              {content.Title}
+              {/* {content.Title} */}
             </div>
           </div>
         ) : (
