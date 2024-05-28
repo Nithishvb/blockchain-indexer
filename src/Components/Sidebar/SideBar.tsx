@@ -91,7 +91,13 @@ const SideBar = ({ startBet , handleCashout , pickRandomTile }: SidebarPropType)
       ) : (
         <div className="py-4 w-[100%]">
           <button
-            onClick={() => startBet(betAmount)}
+            onClick={() => {
+              if(betAmount > state.totalAmount){
+                alert("No fund available");
+                return;
+              }
+              startBet(betAmount)
+            }}
             disabled={betAmount === 0 || !betAmount}
             type="button"
             className={`w-[100%] text-white ${
