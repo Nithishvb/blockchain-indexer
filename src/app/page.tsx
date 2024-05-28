@@ -6,9 +6,8 @@ import { useTileContext } from "@/context/context";
 import { useState } from "react";
 
 export default function Home() {
-  const [activeTileCount, setActiveTileCount] = useState<number>(3);
   const [currentRow, setCurrentRow] = useState<number>(0);
-  const { state , dispatch } = useTileContext();
+  const { state, dispatch } = useTileContext();
 
   const startBet = (betAmount: number) => {
     setCurrentRow((prevCount) => prevCount + 1);
@@ -28,15 +27,23 @@ export default function Home() {
   };
 
   const pickRandomTile = () => {
-    const randomNum = Math.floor(Math.random() * 3); // Generates a random number between 1 and 3
-    console.log(randomNum);
-    if(state.tiles[currentRow][randomNum] && state.tiles[currentRow][randomNum].Title){
-      state.tiles[currentRow][randomNum].isOpened = true;
+    const randomNum = Math.floor(Math.random() * state.numberOfTiles); // Generates a random number between 1 and 3
+    if (
+      state.tiles[currentRow-1][randomNum] &&
+      state.tiles[currentRow-1][randomNum].Title
+    ) {
+      state.tiles[currentRow-1][randomNum].isOpened = true;
       setCurrentRow((prevCount: number) => prevCount + 1);
       dispatch({
         type: "UPDATE_USER_PROFIT",
       });
-    }else{
+      if(currentRow === (state.numberOfTiles % 2 == 0 ? 8 : 9)){
+        setCurrentRow(0);
+        dispatch({
+          type: "CASH_OUT",
+        });
+      }
+    } else {
       setCurrentRow(0);
       dispatch({
         type: "RESET_TILES",
@@ -46,9 +53,12 @@ export default function Home() {
 
   return (
     <main className="flex justify-center items-center">
-      <SideBar startBet={startBet} handleCashout={handleCashout} pickRandomTile={pickRandomTile} />
+      <SideBar
+        startBet={startBet}
+        handleCashout={handleCashout}
+        pickRandomTile={pickRandomTile}
+      />
       <Card
-        activeTileCount={activeTileCount}
         currentRow={currentRow}
         setCurrentRow={setCurrentRow}
       />

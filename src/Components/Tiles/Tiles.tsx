@@ -2,17 +2,19 @@ import Image from "next/image";
 
 type TilesInputProp = {
   content: any;
-  handleTiles: (e: any) => void;
+  handleTiles: (e: any,currentIndex: number) => void;
   activatedTile: boolean;
+  openedTileIndex: boolean;
+  currentIndex: number;
 }
 
-export default function Tiles({ content , handleTiles , activatedTile } : TilesInputProp) {
+export default function Tiles({ content , handleTiles , activatedTile , openedTileIndex , currentIndex } : TilesInputProp) {
   return (
     <main>
       {
         !content.isOpened ? (
-          <div className={`${activatedTile ? 'bg-green-500' : 'bg-gray-500'} w-[170px] rounded-md m-2 cursor-pointer`}>
-            <div className="text-white text-center flex justify-center items-center h-[50px]" aria-disabled="true" onClick={() => activatedTile ? handleTiles(content) : undefined} >
+          <div className={`${activatedTile ? openedTileIndex ? `bg-red-500/50` : 'bg-green-500' : `bg-gray-500`} w-[170px] rounded-md m-2 cursor-pointer`}>
+            <div className="text-white text-center flex justify-center items-center h-[50px]" aria-disabled="true" onClick={() => activatedTile ? handleTiles(content, currentIndex) : undefined} >
               {content.Title}
             </div>
           </div>

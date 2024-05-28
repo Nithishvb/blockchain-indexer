@@ -41,7 +41,15 @@ const SideBar = ({ startBet , handleCashout , pickRandomTile }: SidebarPropType)
           <select
             id="countries"
             value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
+            onChange={(e) => {
+              setDifficulty(e.target.value)
+              dispatch({
+                type: 'CHANGE_DIFFICULTY',
+                payload: {
+                  numberOfTiles: e.target.value == 'medium' ? 3 : e.target.value == 'hard' ? 2 : 4
+                }
+              })
+            }}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="low">Low</option>

@@ -12,12 +12,13 @@ export type InitialStateType = {
   tiles: any[],
   isTileOpened: boolean,
   totalAmount: number,
-  userProfit: number
+  userProfit: number,
+  numberOfTiles: number
 }
 
 const InitialState : InitialStateType = {
-  tiles: [...Array(9)].map((e) =>
-    Array(3)
+  tiles: [...Array(8)].map((e) =>
+    Array(4)
       .fill({
         Title: "Tile",
         isOpened: false,
@@ -26,7 +27,8 @@ const InitialState : InitialStateType = {
   ),
   isTileOpened: false,
   totalAmount: 50000,
-  userProfit: 0
+  userProfit: 0,
+  numberOfTiles: 4
 };
 
 // Create the context

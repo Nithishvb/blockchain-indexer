@@ -5,12 +5,13 @@ export const reducer = (state: InitialStateType, action: any) => {
   switch (action.type) {
     case "RESET_TILES":
       return {
-        tiles: [...Array(9)].map((e) =>
-          Array(3).fill("Tile").map(generateRandomEgg)
+        tiles: [...Array(state.numberOfTiles % 2 == 0 ? 8 : 9)].map((e) =>
+          Array(state.numberOfTiles).fill("Tile").map(generateRandomEgg)
         ),
         isTileOpened: false,
         totalAmount: state.totalAmount,
         userProfit: 0,
+        numberOfTiles: state.numberOfTiles
       };
     case "OPENED_TILES":
       return {
@@ -23,20 +24,26 @@ export const reducer = (state: InitialStateType, action: any) => {
         ...state,
         userProfit: (state.userProfit += 10),
       };
-    case "CASHOUT_PROFIT":
-      return {
-        ...state,
-        totalAmount: state.totalAmount + state.userProfit,
-      };
     case "CASH_OUT":
       return {
-        tiles: [...Array(9)].map((e) =>
-          Array(3).fill("Tile").map(generateRandomEgg)
+        ...state,
+        tiles: [...Array(state.numberOfTiles % 2 == 0 ? 8 : 9)].map((e) =>
+          Array(state.numberOfTiles).fill("Tile").map(generateRandomEgg)
         ),
         isTileOpened: false,
         totalAmount: state.totalAmount + state.userProfit,
         userProfit: 0,
       };
+    case "CHANGE_DIFFICULTY":
+        return {
+          tiles: [...Array(action.payload.numberOfTiles % 2 == 0 ? 8 : 9)].map((e) =>
+            Array(action.payload.numberOfTiles).fill("Tile").map(generateRandomEgg)
+          ),
+          isTileOpened: false,
+          totalAmount: state.totalAmount + state.userProfit,
+          userProfit: 0,
+          numberOfTiles: action.payload.numberOfTiles
+        };
     default:
       return state;
   }
